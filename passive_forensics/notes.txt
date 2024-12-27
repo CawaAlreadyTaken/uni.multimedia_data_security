@@ -1,0 +1,66 @@
+nel pdf AIGenFacePerception.pdf si fa riferimento al dataset FFHQ: https://github.com/NVlabs/ffhq-dataset, oppure StyleGAN2
+Potremmo fare immagini col cellulare / una fotocamera e controllarle localmente? Basta scattare una cinquantina di immagini, poi:
+
+PRNU:
+
+Denoising: Usa un filtro per rimuovere il contenuto dell'immagine (es. filtro wavelet o median).
+Residuo di rumore: Ottieni il residuo sottraendo l'immagine denoised dall'originale.
+Fingerprint PRNU: Media il residuo delle immagini per ottenere un fingerprint unico del sensore.
+
+Potremmo poi usare il fingerprint per identificare il dispositivo.
+Magari due telefoni diversi, vediamo se poi riusciamo a capire quale dei due ha scattato una certa immagine.
+
+
+Altrimenti, CFA:
+Calcola la periodicità del CFA: Analizza le correlazioni tra pixel vicini in ciascun canale colore (R, G, B).
+Modelli statistici: Usa algoritmi come l’Expectation Maximization (EM) per stimare deviazioni dalle correlazioni tipiche.
+
+In piu' potremmo analizzare i metadati dell'immagine. Ovviamente importante mandarsele come file e non come immagini, perdendo il meno possibile. Parte dell'analisi potrebbe essere anche cosa si perde quando vengono mandate.
+- exiftool
+
+Infine:
+Modelli statistici: Usa algoritmi come l’Expectation Maximization (EM) per stimare deviazioni dalle correlazioni tipiche.
+
+____________________________________________
+
+Invece, per quanto riguarda immagini famose:
+per AI generated:
+- Caratteristiche visive e pattern distintivi: GAN Artifacts (incoerenza dettagli, artefatti localizzati (proporzioni sbagliate, etc), Analisi Fourier (es. picchi periodici legati alla griglia di generazione))
+- Modelli pre-addestrati: NVIDIA StyleGAN Detector
+
+Invece per PRNU e CFA, incollo da chatGPT:
+A. Problemi introdotti dalla compressione
+
+    Riduzione del PRNU: La compressione JPEG elimina alcune informazioni di bassa intensità, che includono il rumore PRNU​
+
+.
+Perdita di correlazioni CFA: La ricompressione e modifiche distruggono spesso le correlazioni introdotte dal CFA​
+
+    .
+
+B. Come mitigare
+
+    PRNU su blocchi locali:
+        Dividi l'immagine in blocchi (es. 64x64 o 128x128 pixel).
+        Calcola il residuo di rumore per ciascun blocco.
+        Cerca la presenza del fingerprint su più blocchi: una correlazione consistente potrebbe indicare autenticità.
+    CFA Periodicity Test:
+        Analizza piccoli blocchi dell'immagine per verificare correlazioni periodiche nei canali colore.
+        La mancanza di correlazione in alcune aree potrebbe indicare manipolazioni o splicing.
+
+___________________________________________
+
+Questione immagini originali:
+Subreddit come r/photoshopbattles o r/realorfake possono avere discussioni con fonti di immagini non compresse o originali.
+
+- Agenzie fotografiche:
+
+    Getty Images, AP Images, Reuters Pictures, o altre agenzie giornalistiche spesso pubblicano immagini ad alta risoluzione.
+
+- Archivi dei siti di notizie:
+
+    I siti ufficiali delle testate giornalistiche che hanno pubblicato la foto potrebbero avere versioni ad alta risoluzione. Nella sezione multimediale
+
+- Laion-5B: Un dataset open-source contenente miliardi di immagini con annotazioni. (secondo me riguarda AI)
+
+
